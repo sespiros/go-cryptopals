@@ -10,7 +10,7 @@ func TestChal1(t *testing.T) {
 	input := []byte("YELLOW SUBMARINE")
 	want := []byte("YELLOW SUBMARINE\x04\x04\x04\x04")
 
-	output := PCKSpadding(input, 20)
+	output := PKCSpadding(input, 20)
 	if !bytes.Equal(output, want) {
 		fmt.Println(output)
 		fmt.Println(want)

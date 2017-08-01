@@ -2,14 +2,13 @@ package set1
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 
 	"github.com/sespiros/go-cryptopals/util"
 )
 
 func DetectECB(s []byte) bool {
-	keylengths := []int{16, 32, 64}
+	keylengths := []int{16}
 
 	for _, ks := range keylengths {
 		blockCount := len(s) / ks
@@ -20,10 +19,8 @@ func DetectECB(s []byte) bool {
 			hist[string(blocks[i])]++
 		}
 
-		for k, v := range hist {
+		for _, v := range hist {
 			if v > 1 {
-				fmt.Println(string(s))
-				fmt.Println(k, v)
 				return true
 			}
 		}
