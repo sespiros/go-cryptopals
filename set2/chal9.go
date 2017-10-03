@@ -4,7 +4,8 @@ import (
 	"bytes"
 )
 
-func PKCSpadding(data []byte, size int) []byte {
+// PKCSPadding implements PKCS padding for given data and key size
+func PKCSPadding(data []byte, size int) []byte {
 	l := size - len(data)%size
 
 	return append(data, bytes.Repeat([]byte{byte(l)}, l)...)

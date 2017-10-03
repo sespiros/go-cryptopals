@@ -4,6 +4,7 @@ import (
 	"github.com/sespiros/go-cryptopals/util"
 )
 
+// EncryptAESCBC Implements aes-cbc encryption
 func EncryptAESCBC(plain, key, iv []byte) (cipher []byte) {
 	bs := len(key)
 
@@ -21,6 +22,7 @@ func EncryptAESCBC(plain, key, iv []byte) (cipher []byte) {
 	return cipher
 }
 
+// DecryptAESCBC Implements aes-cbc decryption
 func DecryptAESCBC(cipher, key, iv []byte) (plain []byte) {
 	bs := len(key)
 

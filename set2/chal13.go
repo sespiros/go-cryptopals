@@ -34,7 +34,7 @@ func profileFor(email string) string {
 }
 
 func encryptProfile(email string, key []byte) []byte {
-	plain := PKCSpadding([]byte(profileFor(email)), len(key))
+	plain := PKCSPadding([]byte(profileFor(email)), len(key))
 	cipher := util.EncryptAESECB(plain, key)
 	return cipher
 }

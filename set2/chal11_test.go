@@ -2,27 +2,22 @@ package set2
 
 import (
 	"bytes"
-	"fmt"
 	"testing"
 
 	"github.com/sespiros/go-cryptopals/set1"
 )
 
-func TestChal3(t *testing.T) {
+func TestChal11(t *testing.T) {
 	data := bytes.Repeat([]byte("\x00"), 48)
 
 	cipher, isECB := EncryptionOracle(data)
 
 	if set1.DetectECB(cipher) {
-		if isECB {
-			fmt.Println("Correctly identified ECB")
-		} else {
+		if !isECB {
 			t.Fail()
 		}
 	} else {
-		if !isECB {
-			fmt.Println("Correctly identified CBC")
-		} else {
+		if isECB {
 			t.Fail()
 		}
 	}

@@ -7,13 +7,14 @@ import (
 	"github.com/sespiros/go-cryptopals/util"
 )
 
+// EncryptionOracle detects if passed cipher is CBC or ECB
 func EncryptionOracle(plain []byte) (cipher []byte, isECB bool) {
 	key := util.GenerateRandomKey16()
 	rand.Seed(time.Now().UnixNano())
 
 	plain = append(util.RandomBytes(rand.Intn(6)+5), plain...)
 	plain = append(plain, util.RandomBytes(rand.Intn(6)+5)...)
-	plain = PKCSpadding(plain, len(key))
+	plain = PKCSPadding(plain, len(key))
 
 	mode := rand.Intn(2)
 	switch mode {
