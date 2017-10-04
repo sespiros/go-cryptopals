@@ -1,22 +1,26 @@
 package set2
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
 	"github.com/sespiros/go-cryptopals/util"
 )
 
-func parse(str string) map[string]string {
-	vars := strings.Split(str, "&")
+func Parse(str string, delim string) (map[string]string, error) {
+	vars := strings.Split(str, delim)
 	obj := make(map[string]string)
 
 	for _, v := range vars {
 		lr := strings.Split(v, "=")
+		if len(lr) < 2 {
+			return nil, fmt.Errorf("Error in parsing")
+		}
 		obj[lr[0]] = lr[1]
 	}
 
-	return obj
+	return obj, nil
 }
 
 func profileFor(email string) string {
@@ -42,5 +46,8 @@ func encryptProfile(email string, key []byte) []byte {
 func decryptParseProfile(encUserProfile, key []byte) map[string]string {
 	plain := util.DecryptAESECB(encUserProfile, key)
 	plain = plain[:len(plain)-int(plain[len(plain)-1])] //remove PKCS#7 padding
-	return parse(string(plain))
+
+	profile, err := Parse(string(plain), "&")
+	util.Check(err)
+	return profile
 }
