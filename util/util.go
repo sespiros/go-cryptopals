@@ -3,7 +3,6 @@ package util
 import (
 	"crypto/aes"
 	crand "crypto/rand"
-	"fmt"
 	"log"
 	"math/rand"
 )
@@ -15,15 +14,20 @@ func Check(e error) {
 }
 
 func Xor(a, b []byte) []byte {
-	if len(a) != len(b) {
-		fmt.Println(a)
-		fmt.Println(b)
-		log.Fatal("Xor: Given strings not of same size")
+	max := a
+	min := b
+	if len(b) > len(a) {
+		max = b
+		min = a
 	}
 
-	res := make([]byte, len(a))
-	for i := range a {
-		res[i] = a[i] ^ b[i]
+	res := make([]byte, len(max))
+	diff := len(max) - len(min)
+	for i := 0; i < diff; i++ {
+		res[i] = max[i]
+	}
+	for i := diff; i < len(max); i++ {
+		res[i] = min[i-diff] ^ max[i]
 	}
 	return res
 }

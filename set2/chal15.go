@@ -17,8 +17,12 @@ func PKCSStrip(data []byte) ([]byte, error) {
 	lastByte := data[len(data)-1:][0]
 	num := int(lastByte)
 
+	if num == 0 {
+		return nil, errBadPadding(0)
+	}
+
 	if len(data) < num {
-		return data, nil
+		return data, errBadPadding(0)
 	}
 
 	for i := 1; i <= num; i++ {
