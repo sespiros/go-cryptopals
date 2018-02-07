@@ -1,6 +1,7 @@
 package util
 
 import (
+	"bytes"
 	"crypto/aes"
 	crand "crypto/rand"
 	"log"
@@ -23,11 +24,9 @@ func Xor(a, b []byte) []byte {
 
 	res := make([]byte, len(max))
 	diff := len(max) - len(min)
-	for i := 0; i < diff; i++ {
-		res[i] = max[i]
-	}
-	for i := diff; i < len(max); i++ {
-		res[i] = min[i-diff] ^ max[i]
+	min = append(min, bytes.Repeat([]byte("\x00"), diff)...)
+	for i := 0; i < len(max); i++ {
+		res[i] = min[i] ^ max[i]
 	}
 	return res
 }
