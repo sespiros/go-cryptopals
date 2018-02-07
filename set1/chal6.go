@@ -63,8 +63,8 @@ func _findKeyFitness(enc []byte, ks int, ch chan result) {
 
 func guessKeySize(enc []byte) int {
 	c := make(chan result)
-	const start = 2
-	const end = 40
+	const start = 16
+	const end = 50
 	results := make([]result, 0, end-start)
 
 	for ks := start; ks <= end; ks++ {
@@ -110,8 +110,8 @@ func BreakRepeatedKeyXor(enc []byte) []byte {
 		key = append(key, byte(keyChar))
 	}
 
-	fmt.Println("The key is")
-	fmt.Println(string(key))
+	// fmt.Println("The key is")
+	// fmt.Println(string(key))
 
 	plain := RepeatedXor(enc, key)
 
